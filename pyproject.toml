@@ -9,7 +9,10 @@ dependencies = [
     "psycopg2-binary",
     "ipython",
     "environs",
-    "requests"
+    "requests",
+    "djangorestframework",
+    "django-filter",
+    "drf-spectacular",
 ]
 
 [project.optional-dependencies]

@@ -10,6 +10,7 @@ DATABASES = {
         "USER": env("POSTGRES_USER", "santa_unchained"),
         "PASSWORD": env("POSTGRES_PASSWORD", "santa_unchained"),
         "HOST": env("POSTGRES_HOST", "localhost"),
+        "PORT": env("POSTGRES_PORT", 5432),
     }
 }
 
