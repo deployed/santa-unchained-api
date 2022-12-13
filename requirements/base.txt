@@ -8,6 +8,8 @@ asgiref==3.5.2
     # via django
 asttokens==2.1.0
     # via stack-data
+attrs==22.1.0
+    # via jsonschema
 backcall==0.2.0
     # via ipython
 certifi==2022.9.24
@@ -21,6 +23,9 @@ django==4.1.3
     #   django-admin-display
     #   django-debug-toolbar
     #   django-extensions
+    #   django-filter
+    #   djangorestframework
+    #   drf-spectacular
     #   santa-unchained (pyproject.toml)
 django-admin-display==1.3.0
     # via santa-unchained (pyproject.toml)
@@ -28,16 +33,28 @@ django-debug-toolbar==3.7.0
     # via santa-unchained (pyproject.toml)
 django-extensions==3.2.1
     # via santa-unchained (pyproject.toml)
+django-filter==22.1
+    # via santa-unchained (pyproject.toml)
+djangorestframework==3.14.0
+    # via
+    #   drf-spectacular
+    #   santa-unchained (pyproject.toml)
+drf-spectacular==0.24.2
+    # via santa-unchained (pyproject.toml)
 environs==9.5.0
     # via santa-unchained (pyproject.toml)
 executing==1.2.0
     # via stack-data
 idna==3.4
     # via requests
+inflection==0.5.1
+    # via drf-spectacular
 ipython==8.6.0
     # via santa-unchained (pyproject.toml)
 jedi==0.18.1
     # via ipython
+jsonschema==4.17.3
+    # via drf-spectacular
 marshmallow==3.19.0
     # via environs
 matplotlib-inline==0.1.6
@@ -62,8 +79,14 @@ pygments==2.13.0
     # via ipython
 pyparsing==3.0.9
     # via packaging
+pyrsistent==0.19.2
+    # via jsonschema
 python-dotenv==0.21.0
     # via environs
+pytz==2022.6
+    # via djangorestframework
+pyyaml==6.0
+    # via drf-spectacular
 requests==2.28.1
     # via santa-unchained (pyproject.toml)
 six==1.16.0
@@ -78,6 +101,8 @@ traitlets==5.5.0
     # via
     #   ipython
     #   matplotlib-inline
+uritemplate==4.1.1
+    # via drf-spectacular
 urllib3==1.26.13
     # via requests
 wcwidth==0.2.5

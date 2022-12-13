@@ -28,6 +28,8 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     "debug_toolbar",
     "django_extensions",
+    "rest_framework",
+    "drf_spectacular",
 ]
 
 LOCAL_APPS = [
@@ -121,3 +123,20 @@ MEDIA_ROOT = BASE_DIR.joinpath("media")
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
+# ------------- REST FRAMEWORK ------------
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.SessionAuthentication",
+    ),
+    "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+# ------------- SWAGGER ------------
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Santa unchained API",
+    "VERSION": "1.0.0",
+    "CONTACT": {"email": "deployed.pl@gmail.com"},
+    "SCHEMA_PATH_PREFIX": "/api/",
+}
