@@ -41,6 +41,7 @@ class WishListDetailSerializer(WishListSerializer):
             "address",
             "created_at",
             "items",
+            "status",
         )
 
     def get_address(self, obj):

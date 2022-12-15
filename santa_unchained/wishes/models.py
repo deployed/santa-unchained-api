@@ -85,11 +85,7 @@ class Address(models.Model):
             return default_lat_lng
         lat = data[0].get("lat", 0)
         lng = data[0].get("lon", 0)
-        return (lat, lng)
-
-    @property
-    def to_string(self):
-        return f"{self.street}, {self.post_code} {self.city}, {self.country}"
+        return lat, lng
 
 
 class WishList(models.Model):
@@ -145,6 +141,11 @@ class WishList(models.Model):
     @property
     def kindness(self):
         return random.randint(1, 5)
+
+    def set_status(self, status, save=True):
+        self.status = status
+        if save:
+            self.save(update_fields=["status"])
 
 
 class WishListNew(WishList):

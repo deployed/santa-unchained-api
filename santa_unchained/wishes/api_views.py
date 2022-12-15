@@ -1,10 +1,10 @@
 from django.db.transaction import atomic
+from drf_mixin_tools.mixins import ActionSerializerClassMixin
 from drf_spectacular.utils import extend_schema
 from rest_framework import mixins, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from santa_unchained.api_utils.mixins import ActionSerializerClassMixin
 from santa_unchained.wishes.constants import PackageStatuses, WishListStatuses
 from santa_unchained.wishes.models import Package, WishList
 from santa_unchained.wishes.serializers import (
@@ -36,8 +36,7 @@ class WishListViewSet(
     @action(detail=True, methods=["post"])
     def accept(self, request, pk=None):
         wish_list = self.get_object()
-        wish_list.status = WishListStatuses.ACCEPTED
-        wish_list.save(update_fields=["status"])
+        wish_list.set_status(WishListStatuses.ACCEPTED)
         Package.objects.create(wish_list=wish_list)
         return Response(self.get_serializer(wish_list).data)
 
@@ -46,8 +45,7 @@ class WishListViewSet(
     @action(detail=True, methods=["post"])
     def reject(self, request, pk=None):
         wish_list = self.get_object()
-        wish_list.status = WishListStatuses.REJECTED
-        wish_list.save(update_fields=["status"])
+        wish_list.set_status(WishListStatuses.REJECTED)
         return Response(self.get_serializer(wish_list).data)
 
 
