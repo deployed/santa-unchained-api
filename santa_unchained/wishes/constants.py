@@ -12,3 +12,15 @@ class WishListStatuses(models.TextChoices):
     @classmethod
     def for_elf(cls):
         return [cls.ACCEPTED, cls.READY_FOR_SHIPPING]
+
+
+class PackageStatuses(models.TextChoices):
+    NEW = "new", _("New")
+    SENT = "sent", _("Sent")
+    DELIVERED = "delivered", _("Delivered")
+
+
+class PackageSizes(models.TextChoices):
+    SMALL = "SMALL", _("Small")
+    MEDIUM = "MEDIUM", _("Medium")
+    LARGE = "LARGE", _("Large")

@@ -1,9 +1,15 @@
+import random
+
 import requests
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django_extensions.db.fields import AutoSlugField
 
-from santa_unchained.wishes.constants import WishListStatuses
+from santa_unchained.wishes.constants import (
+    PackageSizes,
+    PackageStatuses,
+    WishListStatuses,
+)
 from santa_unchained.wishes.managers import (
     AcceptedWishListManager,
     DeliveredWishListManager,
@@ -18,6 +24,8 @@ from santa_unchained.wishes.managers import (
 
 class Address(models.Model):
     """An address provided by a child where Santa should deliver presents."""
+
+    house_number = models.CharField(_("House number"), max_length=10, blank=True)
 
     street = models.CharField(
         max_length=100,
@@ -79,6 +87,10 @@ class Address(models.Model):
         lng = data[0].get("lon", 0)
         return (lat, lng)
 
+    @property
+    def to_string(self):
+        return f"{self.street}, {self.post_code} {self.city}, {self.country}"
+
 
 class WishList(models.Model):
     """A wish list sent by a child to Santa."""
@@ -88,6 +100,7 @@ class WishList(models.Model):
         verbose_name=_("Name"),
         help_text=_("Name of a child."),
     )
+    age = models.PositiveSmallIntegerField(_("Age"), default=10)
     email = models.EmailField(
         verbose_name=_("Email address"),
         help_text=_("Email of a child."),
@@ -108,6 +121,8 @@ class WishList(models.Model):
         help_text=_("An automatically generated slug (can be used to construct URLs)."),
         populate_from="name",
     )
+    created_at = models.DateTimeField(_("Created at"), auto_now_add=True)
+
     address = models.ForeignKey(
         Address,
         verbose_name=_("A child's address"),
@@ -126,6 +141,10 @@ class WishList(models.Model):
     @classmethod
     def number_of_objects(cls):
         return cls.objects.count()
+
+    @property
+    def kindness(self):
+        return random.randint(1, 5)
 
 
 class WishListNew(WishList):
@@ -197,3 +216,31 @@ class WishListItem(models.Model):
 
     def __str__(self):
         return _("Wish list item: {}").format(self.name)
+
+
+class Package(models.Model):
+    """A package sent by Santa to a child."""
+
+    wish_list = models.OneToOneField(
+        WishList,
+        verbose_name=_("A wish list"),
+        help_text=_("A relevant wish list the package belongs to."),
+        on_delete=models.CASCADE,
+        related_name="package",
+        related_query_name="package",
+    )
+    status = models.CharField(
+        max_length=20,
+        choices=PackageStatuses.choices,
+        default=PackageStatuses.NEW,
+        verbose_name=_("Status"),
+        help_text=_("Status of a package."),
+    )
+    size = models.CharField(
+        _("Size"), max_length=20, choices=PackageSizes.choices, blank=True
+    )
+
+    created_at = models.DateTimeField(_("Created at"), auto_now_add=True)
+
+    def __str__(self):
+        return _("Package for {}").format(self.wish_list.name)

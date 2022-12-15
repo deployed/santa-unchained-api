@@ -9,13 +9,13 @@ from drf_spectacular.views import (
 )
 
 from santa_unchained.accounts import urls as accounts_urls
-from santa_unchained.wishes import urls as wishes_urls
+from santa_unchained.wishes.urls import router as wishes_router
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("__debug__/", include("debug_toolbar.urls")),
     path("", include(accounts_urls)),
-    path("wishes/", include(wishes_urls)),
+    path("api/", include(wishes_router.urls)),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     path(
         "api/doc/", SpectacularRedocView.as_view(url_name="schema"), name="schema-redoc"

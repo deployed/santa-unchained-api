@@ -13,6 +13,7 @@ dependencies = [
     "djangorestframework",
     "django-filter",
     "drf-spectacular",
+    "djangorestframework-camel-case",
 ]
 
 [project.optional-dependencies]
