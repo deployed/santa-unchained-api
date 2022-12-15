@@ -107,10 +107,12 @@ class PackageDistributionSerializer(serializers.ModelSerializer):
     postcode = serializers.CharField(source="wish_list.address.post_code")
     city = serializers.CharField(source="wish_list.address.city")
     country = serializers.CharField(source="wish_list.address.country")
+    lat = serializers.DecimalField(source="wish_list.address.lat", max_digits=9, decimal_places=6)
+    lng = serializers.DecimalField(source="wish_list.address.lng", max_digits=9, decimal_places=6)
 
     class Meta:
         model = Package
-        fields = ("id", "name", "address", "postcode", "city", "country")
+        fields = ("id", "name", "address", "postcode", "city", "country", "lat", "lng")
 
     def get_address(self, obj):
         return f"{obj.wish_list.address.street}, {obj.wish_list.address.house_number}"
