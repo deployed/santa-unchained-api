@@ -41,5 +41,5 @@ DATABASES = {
 }
 
 # ------------- STATIC -------------
-STATIC_ROOT = BASE_DIR.parent.joinpath("public")
+STATIC_ROOT = BASE_DIR.parent.joinpath("static")
 MEDIA_ROOT = BASE_DIR.parent.joinpath("media")
