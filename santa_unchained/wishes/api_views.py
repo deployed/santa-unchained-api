@@ -1,9 +1,14 @@
+import datetime
+import math
+
 from django.db.transaction import atomic
+from django.utils import timezone
 from drf_mixin_tools.mixins import ActionSerializerClassMixin
-from drf_spectacular.utils import extend_schema
-from rest_framework import mixins, viewsets
+from drf_spectacular.utils import extend_schema, inline_serializer
+from rest_framework import mixins, serializers, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from santa_unchained.wishes.constants import PackageStatuses, WishListStatuses
 from santa_unchained.wishes.models import Package, WishList
@@ -81,3 +86,10 @@ class PackageDistributionViewSet(
 ):
     queryset = Package.objects.all()
     serializer_class = PackageDistributionSerializer
+
+    @extend_schema(responses={200: inline_serializer("TimerSerializer", {"seconds": serializers.IntegerField()})})
+    @action(methods=["GET"], detail=False)
+    def timer(self, request):
+        now = timezone.localtime()
+        next_flight = now.replace(minute=math.ceil(now.minute / 15) * 15, second=0)
+        return Response({'seconds': (next_flight - now).seconds})
