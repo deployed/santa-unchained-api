@@ -21,6 +21,7 @@ decorator==5.1.1
 django==4.1.4
     # via
     #   django-admin-display
+    #   django-cors-headers
     #   django-debug-toolbar
     #   django-extensions
     #   django-filter
@@ -29,6 +30,8 @@ django==4.1.4
     #   drf-spectacular
     #   santa-unchained (pyproject.toml)
 django-admin-display==1.3.0
+    # via santa-unchained (pyproject.toml)
+django-cors-headers==3.13.0
     # via santa-unchained (pyproject.toml)
 django-debug-toolbar==3.8.1
     # via santa-unchained (pyproject.toml)

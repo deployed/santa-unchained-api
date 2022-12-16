@@ -30,6 +30,7 @@ THIRD_PARTY_APPS = [
     "django_extensions",
     "rest_framework",
     "drf_spectacular",
+    "corsheaders",
 ]
 
 LOCAL_APPS = [
@@ -43,6 +44,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # ------------- MIDDLEWARES -------------
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
@@ -149,3 +151,6 @@ SPECTACULAR_SETTINGS = {
     "CONTACT": {"email": "deployed.pl@gmail.com"},
     "SCHEMA_PATH_PREFIX": "/api/",
 }
+
+# ------------- CORS ------------
+CORS_ORIGIN_ALLOW_ALL = True
