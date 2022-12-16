@@ -66,6 +66,7 @@ autoformatters: ## runs auto formatters
 pip-compile:
 	python -m piptools compile --resolver=backtracking  -o requirements/base.txt pyproject.toml
 	python -m piptools compile --resolver=backtracking  --extra dev -o requirements/dev.txt pyproject.toml
+	python -m piptools compile --resolver=backtracking  --extra prod -o requirements/prod.txt pyproject.toml
 
 bootstrap: ## bootstrap project
 	pip install -r requirements/dev.txt

@@ -30,6 +30,9 @@ dev = [
     "factory_boy",
     "pytest-factoryboy",
 ]
+prod = [
+"gunicorn",
+]
 
 [tool.black]
 max-line-length = 88
