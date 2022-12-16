@@ -81,7 +81,7 @@ class PackageDetailSerializer(PackageSerializer):
 
     class Meta:
         model = Package
-        fields = (
+        fields = (  # user info + package info
             "wish_list_id",
             "name",
             "age",
