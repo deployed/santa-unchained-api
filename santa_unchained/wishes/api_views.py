@@ -91,5 +91,5 @@ class PackageDistributionViewSet(
     @action(methods=["GET"], detail=False)
     def timer(self, request):
         now = timezone.localtime()
-        next_flight = now.replace(minute=math.ceil(now.minute / 15) * 15, second=0)
+        next_flight = now.replace(minute=(math.ceil(now.minute / 15) * 15) % 60, second=0)
         return Response({'seconds': (next_flight - now).seconds})
