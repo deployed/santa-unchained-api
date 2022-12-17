@@ -60,7 +60,7 @@ class WishListBaseAdmin(admin.ModelAdmin):
 
 
 @admin.register(WishListNew)
-class WishListNewAdmin(WishListBaseAdmin):
+class WishListNewAdmin(admin.ModelAdmin):
     actions = ["move_to_accept", "move_to_reject"]
 
     @admin.action(description=_("Accept"))
