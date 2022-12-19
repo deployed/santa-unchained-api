@@ -30,6 +30,7 @@ THIRD_PARTY_APPS = [
     "django_extensions",
     "rest_framework",
     "drf_spectacular",
+    "corsheaders",
 ]
 
 LOCAL_APPS = [
@@ -43,6 +44,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # ------------- MIDDLEWARES -------------
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
@@ -131,6 +133,15 @@ REST_FRAMEWORK = {
     ),
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_RENDERER_CLASSES": (
+        "djangorestframework_camel_case.render.CamelCaseJSONRenderer",
+        "djangorestframework_camel_case.render.CamelCaseBrowsableAPIRenderer",
+    ),
+    "DEFAULT_PARSER_CLASSES": (
+        "djangorestframework_camel_case.parser.CamelCaseFormParser",
+        "djangorestframework_camel_case.parser.CamelCaseMultiPartParser",
+        "djangorestframework_camel_case.parser.CamelCaseJSONParser",
+    ),
 }
 
 # ------------- SWAGGER ------------
@@ -140,3 +151,6 @@ SPECTACULAR_SETTINGS = {
     "CONTACT": {"email": "deployed.pl@gmail.com"},
     "SCHEMA_PATH_PREFIX": "/api/",
 }
+
+# ------------- CORS ------------
+CORS_ORIGIN_ALLOW_ALL = True

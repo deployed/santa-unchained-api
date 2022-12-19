@@ -6,6 +6,7 @@ from santa_unchained.wishes.constants import WishListStatuses
 from santa_unchained.wishes.forms import WishListElfAdminForm
 from santa_unchained.wishes.models import (
     Address,
+    Package,
     WishListAccepted,
     WishListDelivered,
     WishListItem,
@@ -59,7 +60,7 @@ class WishListBaseAdmin(admin.ModelAdmin):
 
 
 @admin.register(WishListNew)
-class WishListNewAdmin(WishListBaseAdmin):
+class WishListNewAdmin(admin.ModelAdmin):
     actions = ["move_to_accept", "move_to_reject"]
 
     @admin.action(description=_("Accept"))
@@ -121,3 +122,10 @@ class WishListDeliveredAdmin(WishListBaseAdmin):
 @admin.register(Address)
 class AddressAdmin(admin.ModelAdmin):
     list_display = ("street", "city", "post_code", "city", "country", "lat", "lng")
+
+
+@admin.register(Package)
+class PackageAdmin(admin.ModelAdmin):
+    list_display = ("wish_list", "status")
+    list_filter = ("status",)
+    search_fields = ("wish_list__name", "wish_list__email")
